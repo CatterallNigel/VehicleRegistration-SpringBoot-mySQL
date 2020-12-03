@@ -1,14 +1,16 @@
-package controller;
+package ca.catterall.vehicleRegistrationDTO.controller;
 
 
+import ca.catterall.vehicleRegistrationDTO.Utils.Consts;
 import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
-import model.VehicleRegistration;
+import ca.catterall.vehicleRegistrationDTO.Utils.Validators;
+import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistration;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import repo.VehicleRegistrationRepository;
+import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +34,10 @@ public class VehicleRegistrationController {
             listing.add(r);
         });
         String response = Converters.convertObjToJson(listing);
-        if(!response.equalsIgnoreCase("")){
+        if(response.equalsIgnoreCase(Consts.FAILED_TO_CONVERT_OBJ_TO_JSON)){
             //Error occurred in conversion
-            return new ResponseEntity<String>("Unable to process your request, please try later", HttpStatus.INTERNAL_SERVER_ERROR);
+            String message = "{\"message\": \"Unable to process your request, please try later\"}";
+            return new ResponseEntity<String>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //Returns a List of Registrations
         return new ResponseEntity<String>(response, HttpStatus.OK);
@@ -47,22 +50,37 @@ public class VehicleRegistrationController {
                                                                  @RequestParam("dateOfRegistration") String dateOfRegistration,
                                                                  @RequestParam("yearOfManufacture") String yearOfManufacture){
 
-        //Check fields are not null or empty
-        //return new ResponseEntity<String>("Missing Field Required: ", HttpStatus.BAD_REQUEST);
+        //Check fields are not null or empty, and dates are valid;
+        String validation = Validators.validateRegistration(registrationId,carManufacture,carModel
+                ,dateOfRegistration,yearOfManufacture);
+        if(!validation.equalsIgnoreCase(Consts.STRING_EMPTY)) {
+            String message = "{\"message\": \"" + validation + "\"}";
+            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        VehicleRegistration vr = new VehicleRegistration();
+        vr.setRegistrationId(registrationId);
+        vr.setCarManufacturer(carManufacture);
+        vr.setCarModel(carModel);
+        vr.setDateOfRegistration(Converters.parseStringToDate(dateOfRegistration));
+        vr.setYearOfManufacture(Converters.tryParseInteger(yearOfManufacture));
+        vehicleRegistrationRepository.save(vr);
 
         //Returns  the Id of the New Registration.
-        return new ResponseEntity<String>("Return Id of New Listing", HttpStatus.OK);
+        String response = "{\"id\":" + vr.getId() + "\"}";
+        return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(value="/remove")
     public @ResponseBody  ResponseEntity<String> deleteRegistration(@RequestParam("id") String registrationId){
         Integer id = Converters.tryParseInteger(registrationId);
-        if(id != -1) {
+        if(id != null) {
             vehicleRegistrationRepository.deleteById(id);
             //Doesn't return anything more than the Status Code
             return new ResponseEntity<String>(HttpStatus.OK);
         }else {
-            return new ResponseEntity<String>("Invalid ID: " + registrationId, HttpStatus.BAD_REQUEST);
+            String message = "{\"message\": \"Invalid ID: " + registrationId + "\'}";
+            return new ResponseEntity<String>( message, HttpStatus.BAD_REQUEST);
         }
     }
 }

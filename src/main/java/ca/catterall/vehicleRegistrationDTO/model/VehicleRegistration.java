@@ -1,10 +1,10 @@
-package model;
+package ca.catterall.vehicleRegistrationDTO.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -16,8 +16,12 @@ public class VehicleRegistration {
     private String registrationId;
     private String carManufacturer;
     private String carModel;
+
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfRegistration;
-    private Date yearOfManufacture;
+
+    private int yearOfManufacture;
 
     public Integer getId() {
         return id;
@@ -47,19 +51,19 @@ public class VehicleRegistration {
         this.carModel = carModel;
     }
 
-    public Date getDateOfRegistration() {
-        return dateOfRegistration;
+    public String getDateOfRegistration() {
+        return Converters.parseDateToString(dateOfRegistration);
     }
 
     public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
     }
 
-    public Date getYearOfManufacture() {
+    public int getYearOfManufacture() {
         return yearOfManufacture;
     }
 
-    public void setYearOfManufacture(Date yearOfManufacture) {
+    public void setYearOfManufacture(int yearOfManufacture) {
         this.yearOfManufacture = yearOfManufacture;
     }
 }
