@@ -87,11 +87,11 @@ public class VehicleRegistrationControllerTests {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        String registrationId = "NCA123";
-        String carManufacture = "Ford";
-        String carModel = "Sierra";
-        String dateOfRegistration = "30-11-2020";
-        String yearOfManufacture = "2015Y";
+        String registrationId = "";
+        String carManufacture = "";
+        String carModel = "";
+        String dateOfRegistration = "";
+        String yearOfManufacture = "";
 
         ResponseEntity<String> responseEntity =
                 vehicleRegistrationController.addRegistration(registrationId,carManufacture,carModel,
