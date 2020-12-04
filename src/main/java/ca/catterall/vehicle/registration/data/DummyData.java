@@ -1,7 +1,7 @@
 package ca.catterall.vehicle.registration.data;
 
 
-import ca.catterall.vehicle.registration.Utils.Converters;
+import ca.catterall.vehicle.registration.utils.Converters;
 import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
 import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
 import org.slf4j.Logger;

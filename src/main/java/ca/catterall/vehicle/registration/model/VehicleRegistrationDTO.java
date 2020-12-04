@@ -1,7 +1,7 @@
 package ca.catterall.vehicle.registration.model;
 
 
-import ca.catterall.vehicle.registration.Utils.Converters;
+import ca.catterall.vehicle.registration.utils.Converters;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class VehicleRegistrationDTO {
     }
 
     public void setRegistrationId(String registrationId) {
-        this.registrationId = registrationId.replaceAll("[\\n\\t ]", "");
+        this.registrationId = Converters.trimFormatCharacters(registrationId);
     }
 
     public String getCarManufacturer() {
@@ -39,7 +39,7 @@ public class VehicleRegistrationDTO {
     }
 
     public void setCarManufacturer(String carManufacturer) {
-        this.carManufacturer = carManufacturer.replaceAll("[\\n\\t ]", "");
+        this.carManufacturer = Converters.trimFormatCharacters(carManufacturer);
     }
 
     public String getCarModel() {
@@ -47,7 +47,7 @@ public class VehicleRegistrationDTO {
     }
 
     public void setCarModel(String carModel) {
-        this.carModel = carModel.replaceAll("[\\n\\t ]", "");
+        this.carModel = Converters.trimFormatCharacters(carModel);
     }
 
     public String getDateOfRegistration() { return Converters.parseDateToString(dateOfRegistration); }

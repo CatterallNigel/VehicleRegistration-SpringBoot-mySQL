@@ -1,12 +1,13 @@
 package ca.catterall.vehicle.registration.controller;
 
 
-import ca.catterall.vehicle.registration.Utils.Consts;
-import ca.catterall.vehicle.registration.Utils.Validators;
+import ca.catterall.vehicle.registration.utils.Consts;
+import ca.catterall.vehicle.registration.utils.Validators;
 import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
-import ca.catterall.vehicle.registration.Utils.Converters;
+import ca.catterall.vehicle.registration.utils.Converters;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,11 @@ public class VehicleRegistrationController {
     @Autowired
     VehicleRegistrationRepository vehicleRegistrationRepository;
 
+    static HttpHeaders headers = new HttpHeaders();
+    static {
+        headers.add("Content-Type", "application/json");
+    }
+
 
     @GetMapping(value="/list")
     public @ResponseBody ResponseEntity<String> getVehicleRegistrations(){
@@ -37,10 +43,10 @@ public class VehicleRegistrationController {
         if(response.equalsIgnoreCase(Consts.FAILED_TO_CONVERT_OBJ_TO_JSON)){
             //Error occurred in conversion
             String message = Consts.LISTING_INTERNAL_ERROR_MESSAGE;
-            return new ResponseEntity<String>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<String>(message, headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //Returns a List of Registrations
-        return new ResponseEntity<String>(String.format(Consts.LISTING_SUCCESS_RESULT_MESSAGE,response), HttpStatus.OK);
+        return new ResponseEntity<String>(String.format(Consts.LISTING_SUCCESS_RESULT_MESSAGE,response), headers, HttpStatus.OK);
     }
 
     @PostMapping(value="/register")
@@ -55,7 +61,7 @@ public class VehicleRegistrationController {
                 ,dateOfRegistration,yearOfManufacture);
         if(!validation.equalsIgnoreCase(Consts.STRING_EMPTY)) {
             String message = String.format(Consts.INVALID_REGISTRATION_MESSAGE, validation);
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(message, headers, HttpStatus.BAD_REQUEST);
         }
 
         VehicleRegistrationDTO vr = new VehicleRegistrationDTO();
@@ -68,7 +74,7 @@ public class VehicleRegistrationController {
 
         //Returns  the Id of the New Registration.
         String response = String.format(Consts.SUCCESS_REGISTRATION_MESSAGE,vr.getId());
-        return new ResponseEntity<String>(response, HttpStatus.OK);
+        return new ResponseEntity<String>(response, headers, HttpStatus.OK);
     }
 
     @DeleteMapping(value="/remove/{id}")
@@ -83,11 +89,11 @@ public class VehicleRegistrationController {
                 //Registration ID not found
                 logger.error("Failed to remove registration id: " + id + " Error : " + ex.getMessage());
                 String message = String.format(Consts.DELETE_ID_NOT_FOUND_MESSAGE,registrationId);
-                return new ResponseEntity<String>( message, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<String>( message, headers, HttpStatus.NOT_FOUND);
             }
         }else {
             String message = String.format(Consts.DELETE_INVALID_ID_MESSAGE, registrationId);
-            return new ResponseEntity<String>( message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>( message, headers, HttpStatus.BAD_REQUEST);
         }
     }
 }

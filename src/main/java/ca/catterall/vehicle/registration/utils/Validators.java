@@ -1,4 +1,4 @@
-package ca.catterall.vehicle.registration.Utils;
+package ca.catterall.vehicle.registration.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,26 +10,30 @@ public class Validators {
                                        String yearOfManufacture) {
 
         List<String> errors = new ArrayList<String>(){{
-            add("Missing or invalid field(s) ");
+            add(Consts.VALIDATION_FAILURE_TXT);
         }};
 
-        registrationId = registrationId.replaceAll("[\\n\\t ]", "");
+        registrationId = Converters.trimFormatCharacters(registrationId);
         if(registrationId == null || registrationId.equalsIgnoreCase(Consts.STRING_EMPTY))
-            errors.add("Registration ID");
-        carManufacture = carManufacture.replaceAll("[\\n\\t ]", "");
+            errors.add(Consts.VALIDATION_FAILURE_REGISTRATION_ID);
+
+        carManufacture = Converters.trimFormatCharacters(carManufacture);
         if(carManufacture == null || carManufacture.equalsIgnoreCase(Consts.STRING_EMPTY))
-            errors.add("Car Manufacturer");
-        carModel = carModel.replaceAll("[\\n\\t ]", "");
+            errors.add(Consts.VALIDATION_FAILURE_CAR_MANUFACTURER);
+
+        carModel = Converters.trimFormatCharacters(carModel);
         if(carModel == null || carModel.equalsIgnoreCase(Consts.STRING_EMPTY))
-            errors.add("Car Model");
-        dateOfRegistration = dateOfRegistration.replaceAll("[\\n\\t ]", "");
+            errors.add(Consts.VALIDATION_FAILURE__CAR_MODEL);
+
+        dateOfRegistration = Converters.trimFormatCharacters(dateOfRegistration);
         if(dateOfRegistration == null  || dateOfRegistration.equalsIgnoreCase(Consts.STRING_EMPTY)
                 || Converters.parseStringToDate(dateOfRegistration) == null)
-            errors.add("Date of Registration");
-        yearOfManufacture = yearOfManufacture.replaceAll("[\\n\\t ]", "");
+            errors.add(Consts.VALIDATION_FAILURE_DATE_OF_REG);
+
+        yearOfManufacture = Converters.trimFormatCharacters(yearOfManufacture);
         if(yearOfManufacture == null  || yearOfManufacture.equalsIgnoreCase(Consts.STRING_EMPTY)
                 || Converters.tryParseInteger(yearOfManufacture) == null)
-            errors.add("Year of Manufacture");
+            errors.add(Consts.VALIDATION_FAILURE_YEAR_OF_MANU);
 
         if(errors.size() > 1) {
             return String.join(", ", errors.stream().toArray(String[]::new));

@@ -1,4 +1,4 @@
-package ca.catterall.vehicle.registration.Utils;
+package ca.catterall.vehicle.registration.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class Converters {
 
     public static Integer tryParseInteger(String val){
         try{
-            val = val.replaceAll("[\\n\\t ]", "");
+            val = trimFormatCharacters(val);
             return Integer.parseInt(val);
         }catch(Exception ex){
             logger.error("Unable to parse value:  " + val + " Error: " + ex.getMessage());
@@ -37,9 +37,9 @@ public class Converters {
 
     public static Date parseStringToDate(String date){
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat(Consts.CONVERTERS_DATE_FORMAT);
             sdf.setLenient(false);
-            date = date.replaceAll("[\\n\\t ]", "");
+            date = trimFormatCharacters(date);
             return sdf.parse(date);
         } catch(Exception ex){
             logger.error("Unable to parse date:  " + date + " Error: " + ex.getMessage());
@@ -49,11 +49,15 @@ public class Converters {
 
     public static String parseDateToString(Date date){
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat(Consts.CONVERTERS_DATE_FORMAT);
             return sdf.format(date);
         } catch(Exception ex){
             logger.error("Unable to parse date:  " + date + " Error: " + ex.getMessage());
             return null;
         }
+    }
+
+    public static String trimFormatCharacters(String str){
+        return str.replaceAll(Consts.CONVERTERS_FORMAT_CHAR_REGX, "");
     }
 }
