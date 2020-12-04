@@ -1,9 +1,9 @@
-package ca.catterall.vehicleRegistrationDTO.data;
+package ca.catterall.vehicle.registration.data;
 
 
-import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
-import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistrationDTO;
-import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
+import ca.catterall.vehicle.registration.Utils.Converters;
+import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
+import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

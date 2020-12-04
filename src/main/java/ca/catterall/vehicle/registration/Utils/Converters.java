@@ -1,4 +1,4 @@
-package ca.catterall.vehicleRegistrationDTO.Utils;
+package ca.catterall.vehicle.registration.Utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

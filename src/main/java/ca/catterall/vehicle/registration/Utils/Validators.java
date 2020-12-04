@@ -1,4 +1,4 @@
-package ca.catterall.vehicleRegistrationDTO.Utils;
+package ca.catterall.vehicle.registration.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

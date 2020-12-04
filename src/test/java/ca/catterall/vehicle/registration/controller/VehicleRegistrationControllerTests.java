@@ -1,7 +1,7 @@
-package ca.catterall.vehicleRegistrationDTO.controller;
+package ca.catterall.vehicle.registration.controller;
 
 
-import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
+import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

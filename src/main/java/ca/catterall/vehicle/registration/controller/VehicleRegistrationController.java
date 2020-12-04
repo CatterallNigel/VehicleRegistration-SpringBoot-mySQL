@@ -1,16 +1,16 @@
-package ca.catterall.vehicleRegistrationDTO.controller;
+package ca.catterall.vehicle.registration.controller;
 
 
-import ca.catterall.vehicleRegistrationDTO.Utils.Consts;
-import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
-import ca.catterall.vehicleRegistrationDTO.Utils.Validators;
-import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistrationDTO;
+import ca.catterall.vehicle.registration.Utils.Consts;
+import ca.catterall.vehicle.registration.Utils.Validators;
+import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
+import ca.catterall.vehicle.registration.Utils.Converters;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
+import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
 
 import java.util.ArrayList;
 import java.util.List;

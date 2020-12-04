@@ -1,8 +1,7 @@
-package ca.catterall.vehicleRegistrationDTO.model;
+package ca.catterall.vehicle.registration.model;
 
 
-import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
-import org.springframework.format.annotation.DateTimeFormat;
+import ca.catterall.vehicle.registration.Utils.Converters;
 
 import javax.persistence.*;
 import java.util.Date;
