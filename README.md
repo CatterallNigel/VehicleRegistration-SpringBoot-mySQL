@@ -9,8 +9,8 @@ On start-up, there are three Vehicle Registrations, inserted into the DB as 'see
 All responses are in JSON format, with a corresponding HTTP Status Code, for both success and error.
 
 In the 'Postman' directory, is a file that can be imported into Postman, that has all the REST calls, GET,POST and DELETE for: 
-  Getting the Registration Listings (ALL)
-  Adding a New Registration (success & failure)
-  Deleting a Registration (success & failure)
+  Getting the Registration Listings (ALL); 
+  Adding a New Registration (success & failure); 
+  Deleting a Registration (success & failure).
   
 There is a set of Mockito/JUnit test cases in ca.catterall.vehicle.registration.controller.VehicleRegistrationControllerTests.java for the application.
