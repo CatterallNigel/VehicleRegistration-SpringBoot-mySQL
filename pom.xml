@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ca.catterall</groupId>
-	<artifactId>vehicleRegistration</artifactId>
+	<artifactId>vehicle-registration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vehicle-registration</name>
 	<description>VehicleRegistration project for Spring Boot</description>
