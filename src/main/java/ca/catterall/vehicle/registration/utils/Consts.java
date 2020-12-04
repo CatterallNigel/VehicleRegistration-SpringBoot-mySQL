@@ -18,7 +18,7 @@ public class Consts {
     public static final String VALIDATION_FAILURE_TXT = "Missing or invalid field(s) ";
     public static final String VALIDATION_FAILURE_REGISTRATION_ID = "Registration ID";
     public static final String VALIDATION_FAILURE_CAR_MANUFACTURER = "Car Manufacturer";
-    public static final String VALIDATION_FAILURE__CAR_MODEL = "Car Model";
+    public static final String VALIDATION_FAILURE_CAR_MODEL = "Car Model";
     public static final String VALIDATION_FAILURE_DATE_OF_REG = "Date of Registration";
     public static final String VALIDATION_FAILURE_YEAR_OF_MANU = "Year of Manufacture";
 }

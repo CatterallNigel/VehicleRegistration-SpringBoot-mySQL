@@ -23,7 +23,7 @@ public class Validators {
 
         carModel = Converters.trimFormatCharacters(carModel);
         if(carModel == null || carModel.equalsIgnoreCase(Consts.STRING_EMPTY))
-            errors.add(Consts.VALIDATION_FAILURE__CAR_MODEL);
+            errors.add(Consts.VALIDATION_FAILURE_CAR_MODEL);
 
         dateOfRegistration = Converters.trimFormatCharacters(dateOfRegistration);
         if(dateOfRegistration == null  || dateOfRegistration.equalsIgnoreCase(Consts.STRING_EMPTY)
