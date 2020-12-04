@@ -1,15 +1,12 @@
 package ca.catterall.vehicleRegistrationDTO.controller;
 
 
-import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistration;
 import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -136,9 +133,9 @@ public class VehicleRegistrationControllerTests {
                 vehicleRegistrationController.getVehicleRegistrations();
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
-        assertThat(responseEntity.getBody().equalsIgnoreCase("{\"id\":1,\"registrationId\":\"NCA123\"," +
+        assertThat(responseEntity.getBody().equalsIgnoreCase("{\"registrations\"[{\"id\":1,\"registrationId\":\"NCA123\"," +
                 "\"carManufacturer\":\"Ford\",\"carModel\":\"Sierra\"," +
-                "\"dateOfRegistration\":\"30-11-2020\",\"yearOfManufacture\":2015}"));
+                "\"dateOfRegistration\":\"30-11-2020\",\"yearOfManufacture\":2015}]}"));
     }
 
     @Test

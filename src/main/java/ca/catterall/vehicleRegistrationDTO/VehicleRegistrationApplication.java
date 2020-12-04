@@ -8,13 +8,13 @@ import org.springframework.context.ApplicationContext;
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
-public class VehicleRegistrationDtoApplication {
+public class VehicleRegistrationApplication {
 
 	@Autowired
 	ApplicationContext context;
 
 	public static void main(String[] args) {
-		SpringApplication.run(VehicleRegistrationDtoApplication.class, args);
+		SpringApplication.run(VehicleRegistrationApplication.class, args);
 	}
 
 	@PostConstruct

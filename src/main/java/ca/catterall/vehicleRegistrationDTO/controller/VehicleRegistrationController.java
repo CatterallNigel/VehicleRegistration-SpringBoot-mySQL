@@ -4,7 +4,7 @@ package ca.catterall.vehicleRegistrationDTO.controller;
 import ca.catterall.vehicleRegistrationDTO.Utils.Consts;
 import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
 import ca.catterall.vehicleRegistrationDTO.Utils.Validators;
-import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistration;
+import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistrationDTO;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class VehicleRegistrationController {
 
     @GetMapping(value="/list")
     public @ResponseBody ResponseEntity<String> getVehicleRegistrations(){
-        List<VehicleRegistration> listing = new ArrayList<>();
+        List<VehicleRegistrationDTO> listing = new ArrayList<>();
         vehicleRegistrationRepository.findAll().forEach( r -> {
             listing.add(r);
         });
@@ -40,7 +40,7 @@ public class VehicleRegistrationController {
             return new ResponseEntity<String>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //Returns a List of Registrations
-        return new ResponseEntity<String>(response, HttpStatus.OK);
+        return new ResponseEntity<String>(String.format(Consts.LISTING_SUCCESS_RESULT_MESSAGE,response), HttpStatus.OK);
     }
 
     @PostMapping(value="/register")
@@ -58,7 +58,7 @@ public class VehicleRegistrationController {
             return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
         }
 
-        VehicleRegistration vr = new VehicleRegistration();
+        VehicleRegistrationDTO vr = new VehicleRegistrationDTO();
         vr.setRegistrationId(registrationId);
         vr.setCarManufacturer(carManufacture);
         vr.setCarModel(carModel);

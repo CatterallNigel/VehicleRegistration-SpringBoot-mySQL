@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class VehicleRegistration {
+public class VehicleRegistrationDTO {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -51,7 +51,7 @@ public class VehicleRegistration {
         this.carModel = carModel.replaceAll("[\\n\\t ]", "");
     }
 
-    public Date getDateOfRegistration() { return dateOfRegistration; }
+    public String getDateOfRegistration() { return Converters.parseDateToString(dateOfRegistration); }
 
     public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;

@@ -2,7 +2,7 @@ package ca.catterall.vehicleRegistrationDTO.data;
 
 
 import ca.catterall.vehicleRegistrationDTO.Utils.Converters;
-import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistration;
+import ca.catterall.vehicleRegistrationDTO.model.VehicleRegistrationDTO;
 import ca.catterall.vehicleRegistrationDTO.repo.VehicleRegistrationRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class DummyData {
 
         for(int v = 0 ; v < 3 ; v++){
             try {
-                VehicleRegistration vr = new VehicleRegistration();
+                VehicleRegistrationDTO vr = new VehicleRegistrationDTO();
                 vr.setRegistrationId(registrationId[v]);
                 vr.setCarManufacturer(carManufacturers[v]);
                 vr.setCarModel(carModel[v]);
