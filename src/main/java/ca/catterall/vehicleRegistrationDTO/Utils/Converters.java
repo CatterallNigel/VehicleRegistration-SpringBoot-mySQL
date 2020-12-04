@@ -27,8 +27,10 @@ public class Converters {
 
     public static Integer tryParseInteger(String val){
         try{
+            val = val.replaceAll("[\\n\\t ]", "");
             return Integer.parseInt(val);
         }catch(Exception ex){
+            logger.error("Unable to parse value:  " + val + " Error: " + ex.getMessage());
             return null;
         }
     }
@@ -36,6 +38,8 @@ public class Converters {
     public static Date parseStringToDate(String date){
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            sdf.setLenient(false);
+            date = date.replaceAll("[\\n\\t ]", "");
             return sdf.parse(date);
         } catch(Exception ex){
             logger.error("Unable to parse date:  " + date + " Error: " + ex.getMessage());

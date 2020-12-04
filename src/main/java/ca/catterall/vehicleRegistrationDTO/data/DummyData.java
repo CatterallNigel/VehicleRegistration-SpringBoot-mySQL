@@ -25,7 +25,7 @@ public class DummyData {
     public static String[] carManufacturers = {"Ford", "GMC", "Toyota"};
     public static String[] carModel = {"Sierra", "Ka", "Explorer"};
 
-    public static String[] dateOfRegistration = {"31-11-1980", "01-01-2010", "14-02-2014"};
+    public static String[] dateOfRegistration = {"30-11-1980", "01-01-2010", "14-02-2014"};
     public static int[] yearOfManufacture = {1979, 2009, 2013};
 
     @Bean("InitData")

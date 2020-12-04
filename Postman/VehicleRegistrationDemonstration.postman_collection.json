@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "b9eddace-8f2b-4561-a2c8-a4049ea1fa52",
+		"name": "VehicleRegistrationDemonstration",
+		"description": "Demonstration of fbasis Spring-Boot Rest Controller and mySQL(CRUD) repository with test cases using a @Mock repository.\r\nDummy data is loaded on start-up into a in memory 'h2' DB - remove this from the POM and uncomment the mySQL connection details in the application.properties to use mySQL.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List all Vehicle Registrations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Successful Vehicle Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "registrationId",
+							"value": "NCA123",
+							"type": "text"
+						},
+						{
+							"key": "carManufacture",
+							"value": "GMC\n",
+							"type": "text"
+						},
+						{
+							"key": "carModel",
+							"value": "Sierra",
+							"type": "text"
+						},
+						{
+							"key": "dateOfRegistration",
+							"value": "10-06-2014",
+							"type": "text"
+						},
+						{
+							"key": "yearOfManufacture",
+							"value": "1997",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				},
+				"description": "Vechicle details are crrect and the registratino is successful with the registration 'id' returned"
+			},
+			"response": []
+		},
+		{
+			"name": "Vehicle Registration failed Bad/Invalid Date of Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "registrationId",
+							"value": "NCA123",
+							"type": "text"
+						},
+						{
+							"key": "carManufacture",
+							"value": "GMC\n",
+							"type": "text"
+						},
+						{
+							"key": "carModel",
+							"value": "Sierra",
+							"type": "text"
+						},
+						{
+							"key": "dateOfRegistration",
+							"value": "30-13-2014",
+							"type": "text"
+						},
+						{
+							"key": "yearOfManufacture",
+							"value": "1997",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				},
+				"description": "The registration failed as the Date of Registration was invalid - the message returned display which field(s) are missing or incorrect - the Status is 400 - BAD REQUEST."
+			},
+			"response": []
+		},
+		{
+			"name": " Vehicle Registration failed Bad/Invalid Year of Manufacture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "registrationId",
+							"value": "NCA123",
+							"type": "text"
+						},
+						{
+							"key": "carManufacture",
+							"value": "GMC\n",
+							"type": "text"
+						},
+						{
+							"key": "carModel",
+							"value": "Sierra",
+							"type": "text"
+						},
+						{
+							"key": "dateOfRegistration",
+							"value": "30-11-2014",
+							"type": "text"
+						},
+						{
+							"key": "yearOfManufacture",
+							"value": "1997YYYY",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				},
+				"description": "The registration failed as the Year of Manufacture was invalid - the message returned display which field(s) are missing or incorrect - the Status is 400 - BAD REQUEST. (in this case it is alphanummeric - it should only be an int)"
+			},
+			"response": []
+		},
+		{
+			"name": " Vehicle Registration failed ALL fields are empty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "registrationId",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "carManufacture",
+							"value": "\n",
+							"type": "text"
+						},
+						{
+							"key": "carModel",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "dateOfRegistration",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "yearOfManufacture",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				},
+				"description": "The registration failed as all the field were empty - the message returned display which field(s) are missing or incorrect - the Status is 400 - BAD REQUEST.\r\nIf some field aren't empty - the returned message only display those missing or invalid"
+			},
+			"response": []
+		},
+		{
+			"name": " Vehicle Registration failed Car Manufacturer missing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "registrationId",
+							"value": "NCA123",
+							"type": "text"
+						},
+						{
+							"key": "carManufacture",
+							"value": "\n",
+							"type": "text"
+						},
+						{
+							"key": "carModel",
+							"value": "Sierra",
+							"type": "text"
+						},
+						{
+							"key": "dateOfRegistration",
+							"value": "30-11-2014",
+							"type": "text"
+						},
+						{
+							"key": "yearOfManufacture",
+							"value": "1997",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"register"
+					]
+				},
+				"description": "The registration failed as the Car Manufacture was invalid and missing the input was just a \\n - the message returned display which field(s) are missing or incorrect - the Status is 400 - BAD REQUEST.\r\n\r\nThis is a single field issing - as more field are missing or invalid they are added to the return message."
+			},
+			"response": []
+		},
+		{
+			"name": "Removed Vehicle Registration Success",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/remove/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"remove",
+						"1"
+					]
+				},
+				"description": "The vehicle registration was successfully removed - Status 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Removed Vehicle Registration Failure",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/remove/delete1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"remove",
+						"delete1"
+					]
+				},
+				"description": "The removal failed as the registration ID was invalid - in this case passed a aplanumerica it requires just a int. Status code 400 - BAD REQUEST"
+			},
+			"response": []
+		},
+		{
+			"name": "Removed Vehicle Registration Not Found",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/remove/500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"remove",
+						"500"
+					]
+				},
+				"description": "There is no registration with this ID - Return Status 404 - Not Found"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

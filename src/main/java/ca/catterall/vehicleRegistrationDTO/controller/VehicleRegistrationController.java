@@ -36,14 +36,14 @@ public class VehicleRegistrationController {
         String response = Converters.convertObjToJson(listing);
         if(response.equalsIgnoreCase(Consts.FAILED_TO_CONVERT_OBJ_TO_JSON)){
             //Error occurred in conversion
-            String message = "{\"message\": \"Unable to process your request, please try later\"}";
+            String message = Consts.LISTING_INTERNAL_ERROR_MESSAGE;
             return new ResponseEntity<String>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //Returns a List of Registrations
         return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
-    @PostMapping(value="/save")
+    @PostMapping(value="/register")
     public @ResponseBody  ResponseEntity<String> addRegistration(@RequestParam("registrationId") String registrationId,
                                                                  @RequestParam("carManufacture") String carManufacture,
                                                                  @RequestParam("carModel") String carModel,
@@ -54,7 +54,7 @@ public class VehicleRegistrationController {
         String validation = Validators.validateRegistration(registrationId,carManufacture,carModel
                 ,dateOfRegistration,yearOfManufacture);
         if(!validation.equalsIgnoreCase(Consts.STRING_EMPTY)) {
-            String message = "{\"message\": \"" + validation + "\"}";
+            String message = String.format(Consts.INVALID_REGISTRATION_MESSAGE, validation);
             return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
         }
 
@@ -67,19 +67,26 @@ public class VehicleRegistrationController {
         vehicleRegistrationRepository.save(vr);
 
         //Returns  the Id of the New Registration.
-        String response = "{\"id\":" + vr.getId() + "\"}";
+        String response = String.format(Consts.SUCCESS_REGISTRATION_MESSAGE,vr.getId());
         return new ResponseEntity<String>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping(value="/remove")
-    public @ResponseBody  ResponseEntity<String> deleteRegistration(@RequestParam("id") String registrationId){
+    @DeleteMapping(value="/remove/{id}")
+    public @ResponseBody  ResponseEntity<String> deleteRegistration(@PathVariable("id") String registrationId){
         Integer id = Converters.tryParseInteger(registrationId);
         if(id != null) {
-            vehicleRegistrationRepository.deleteById(id);
-            //Doesn't return anything more than the Status Code
-            return new ResponseEntity<String>(HttpStatus.OK);
+            try {
+                vehicleRegistrationRepository.deleteById(id);
+                //Doesn't return anything more than the Status Code
+                return new ResponseEntity<String>(HttpStatus.OK);
+            }catch(Exception ex){
+                //Registration ID not found
+                logger.error("Failed to remove registration id: " + id + " Error : " + ex.getMessage());
+                String message = String.format(Consts.DELETE_ID_NOT_FOUND_MESSAGE,registrationId);
+                return new ResponseEntity<String>( message, HttpStatus.NOT_FOUND);
+            }
         }else {
-            String message = "{\"message\": \"Invalid ID: " + registrationId + "\'}";
+            String message = String.format(Consts.DELETE_INVALID_ID_MESSAGE, registrationId);
             return new ResponseEntity<String>( message, HttpStatus.BAD_REQUEST);
         }
     }

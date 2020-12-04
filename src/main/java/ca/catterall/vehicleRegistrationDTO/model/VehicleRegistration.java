@@ -12,18 +12,18 @@ public class VehicleRegistration {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private int id;
+
     private String registrationId;
     private String carManufacturer;
     private String carModel;
-
 
     @Temporal(TemporalType.DATE)
     private Date dateOfRegistration;
 
     private int yearOfManufacture;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class VehicleRegistration {
     }
 
     public void setRegistrationId(String registrationId) {
-        this.registrationId = registrationId;
+        this.registrationId = registrationId.replaceAll("[\\n\\t ]", "");
     }
 
     public String getCarManufacturer() {
@@ -40,7 +40,7 @@ public class VehicleRegistration {
     }
 
     public void setCarManufacturer(String carManufacturer) {
-        this.carManufacturer = carManufacturer;
+        this.carManufacturer = carManufacturer.replaceAll("[\\n\\t ]", "");
     }
 
     public String getCarModel() {
@@ -48,12 +48,10 @@ public class VehicleRegistration {
     }
 
     public void setCarModel(String carModel) {
-        this.carModel = carModel;
+        this.carModel = carModel.replaceAll("[\\n\\t ]", "");
     }
 
-    public String getDateOfRegistration() {
-        return Converters.parseDateToString(dateOfRegistration);
-    }
+    public Date getDateOfRegistration() { return dateOfRegistration; }
 
     public void setDateOfRegistration(Date dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
