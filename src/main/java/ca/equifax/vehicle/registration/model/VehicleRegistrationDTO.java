@@ -1,7 +1,7 @@
-package ca.catterall.vehicle.registration.model;
+package ca.equifax.vehicle.registration.model;
 
 
-import ca.catterall.vehicle.registration.utils.Converters;
+import ca.equifax.vehicle.registration.utils.Converters;
 
 import javax.persistence.*;
 import java.util.Date;

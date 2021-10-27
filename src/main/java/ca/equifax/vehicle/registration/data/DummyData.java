@@ -1,9 +1,9 @@
-package ca.catterall.vehicle.registration.data;
+package ca.equifax.vehicle.registration.data;
 
 
-import ca.catterall.vehicle.registration.utils.Converters;
-import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
-import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
+import ca.equifax.vehicle.registration.utils.Converters;
+import ca.equifax.vehicle.registration.model.VehicleRegistrationDTO;
+import ca.equifax.vehicle.registration.repo.VehicleRegistrationRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Configuration
 public class DummyData {
 
-    Logger logger = getLogger(Converters.class);
+    Logger logger = getLogger(DummyData.class);
 
     @Autowired
     VehicleRegistrationRepository vehicleRegistrationRepository;
@@ -45,8 +45,7 @@ public class DummyData {
                     vehicleRegistrationRepository.save(vr);
                     logger.info("Vehicle Registration UniqueId: " + vr.getId());
                 }else{
-                    if(dateRegistered == null)
-                        logger.error("Unable to parse 'Date Registered' " + dateOfRegistration[v]);
+                    logger.error("Unable to parse 'Date Registered' " + dateOfRegistration[v]);
                 }
 
             }catch(Exception ex){

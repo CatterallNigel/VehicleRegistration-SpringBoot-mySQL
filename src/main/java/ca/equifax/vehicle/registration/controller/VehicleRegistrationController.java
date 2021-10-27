@@ -1,17 +1,17 @@
-package ca.catterall.vehicle.registration.controller;
+package ca.equifax.vehicle.registration.controller;
 
 
-import ca.catterall.vehicle.registration.utils.Consts;
-import ca.catterall.vehicle.registration.utils.Validators;
-import ca.catterall.vehicle.registration.model.VehicleRegistrationDTO;
-import ca.catterall.vehicle.registration.utils.Converters;
+import ca.equifax.vehicle.registration.utils.Consts;
+import ca.equifax.vehicle.registration.utils.Validators;
+import ca.equifax.vehicle.registration.model.VehicleRegistrationDTO;
+import ca.equifax.vehicle.registration.utils.Converters;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ca.catterall.vehicle.registration.repo.VehicleRegistrationRepository;
+import ca.equifax.vehicle.registration.repo.VehicleRegistrationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +59,7 @@ public class VehicleRegistrationController {
         //Check fields are not null or empty, and dates are valid;
         String validation = Validators.validateRegistration(registrationId,carManufacture,carModel
                 ,dateOfRegistration,yearOfManufacture);
+
         if(!validation.equalsIgnoreCase(Consts.STRING_EMPTY)) {
             String message = String.format(Consts.INVALID_REGISTRATION_MESSAGE, validation);
             return new ResponseEntity<String>(message, headers, HttpStatus.BAD_REQUEST);

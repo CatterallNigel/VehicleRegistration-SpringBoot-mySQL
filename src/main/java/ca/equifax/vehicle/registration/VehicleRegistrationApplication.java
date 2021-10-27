@@ -1,4 +1,4 @@
-package ca.catterall.vehicle.registration;
+package ca.equifax.vehicle.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

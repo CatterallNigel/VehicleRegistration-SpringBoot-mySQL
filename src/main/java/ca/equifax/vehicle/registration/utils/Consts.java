@@ -1,4 +1,4 @@
-package ca.catterall.vehicle.registration.utils;
+package ca.equifax.vehicle.registration.utils;
 
 public class Consts {
 

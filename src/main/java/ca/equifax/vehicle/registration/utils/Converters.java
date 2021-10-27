@@ -1,4 +1,4 @@
-package ca.catterall.vehicle.registration.utils;
+package ca.equifax.vehicle.registration.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

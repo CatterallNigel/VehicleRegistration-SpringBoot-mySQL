@@ -6,21 +6,23 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<groupId>ca.catterall</groupId>
+
+	<groupId>ca.equifax</groupId>
 	<artifactId>vehicle-registration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vehicle-registration</name>
-	<description>VehicleRegistration project for Spring Boot</description>
+	<description>Vehicle Registration project for Spring Boot</description>
 
-	<properties>
+    <properties>
 		<java.version>1.8</java.version>
-        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <junit.platform.version>1.2.0</junit.platform.version>
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -63,6 +65,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <!--<version>4.12</version>-->
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -80,19 +83,66 @@
 
     </dependencies>
 
+
 	<build>
-		<plugins>
+        <testSourceDirectory>${project.basedir}/src/test/java/</testSourceDirectory>
+        <plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+            <!--<plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0-M1</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>unit-tests</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                            <includes>
+                                <include>**/Test*.*</include>
+                                <include>**/*Tests.*</include>
+                                <include>**/*TestCase.*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.2</version>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                            <includes>
+                                <include>**/IT*.*</include>
+                                <include>**/*IT.*</include>
+                                <include>**/*ITCase.*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 		</plugins>
 	</build>
