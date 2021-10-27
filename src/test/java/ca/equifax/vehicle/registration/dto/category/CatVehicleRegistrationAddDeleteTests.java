@@ -1,5 +1,6 @@
 package ca.equifax.vehicle.registration.dto.category;
 
+
 import ca.equifax.vehicle.registration.TestCategories;
 import ca.equifax.vehicle.registration.controller.VehicleRegistrationController;
 import ca.equifax.vehicle.registration.repo.VehicleRegistrationRepository;
@@ -16,9 +17,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//mvn -Dgroups=ca.equifax.vehicle.registration.TestCategories$RegistrationAddTest test
+
 @RunWith(MockitoJUnitRunner.class)
 @Category(TestCategories.class)
-public class VehicleRegistrationGetTests {
+public class CatVehicleRegistrationAddDeleteTests {
 
     @InjectMocks
     VehicleRegistrationController vehicleRegistrationController;
@@ -27,8 +30,8 @@ public class VehicleRegistrationGetTests {
     VehicleRegistrationRepository vehicleRegistrationRepository;
 
     @Test
-    @Category(TestCategories.RegistrationGetTest.class)
-    public void testGetRegistrations(){
+    @Category(TestCategories.RegistrationAddTest.class)
+    public void testAddSuccessfulRegistration(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
@@ -43,14 +46,36 @@ public class VehicleRegistrationGetTests {
                         dateOfRegistration,yearOfManufacture);
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        assertThat(responseEntity.getBody().equalsIgnoreCase("{\"id\":\"1\"}"));
+    }
+
+    @Test
+    @Category(TestCategories.RegistrationDeleteTest.class)
+    public void testDeleteRegistration(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        String registrationId = "NCA123";
+        String carManufacture = "Ford";
+        String carModel = "Sierra";
+        String dateOfRegistration = "30-11-2020";
+        String yearOfManufacture = "2015";
+
+        ResponseEntity<String> responseEntity =
+                vehicleRegistrationController.addRegistration(registrationId,carManufacture,carModel,
+                        dateOfRegistration,yearOfManufacture);
+
+        responseEntity =
+                vehicleRegistrationController.deleteRegistration("1");
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
 
         responseEntity =
                 vehicleRegistrationController.getVehicleRegistrations();
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
-        assertThat(responseEntity.getBody().equalsIgnoreCase("{\"registrations\"[{\"id\":1,\"registrationId\":\"NCA123\"," +
-                "\"carManufacturer\":\"Ford\",\"carModel\":\"Sierra\"," +
-                "\"dateOfRegistration\":\"30-11-2020\",\"yearOfManufacture\":2015}]}"));
-    }
+        assertThat(responseEntity.getBody().equalsIgnoreCase("{}"));
 
+    }
 }
+

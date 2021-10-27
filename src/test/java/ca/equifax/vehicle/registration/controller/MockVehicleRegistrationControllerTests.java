@@ -32,6 +32,7 @@ public class MockVehicleRegistrationControllerTests {
     @Mock
     VehicleRegistrationRepository vehicleRegistrationRepository;
 
+
     @Test
     @Order(1)
     @Category({TestCategories.RegistrationAddTest.class, TestCategories.RegistrationFastTest.class

@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 @Category(TestCategories.class)
-public class VehicleRegistrationDeleteTests {
+public class CatVehicleRegistrationGetTests {
 
     @InjectMocks
     VehicleRegistrationController vehicleRegistrationController;
@@ -27,8 +27,8 @@ public class VehicleRegistrationDeleteTests {
     VehicleRegistrationRepository vehicleRegistrationRepository;
 
     @Test
-    @Category(TestCategories.RegistrationDeleteTest.class)
-    public void testDeleteRegistration(){
+    @Category(TestCategories.RegistrationGetTest.class)
+    public void testGetRegistrations(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
@@ -42,16 +42,15 @@ public class VehicleRegistrationDeleteTests {
                 vehicleRegistrationController.addRegistration(registrationId,carManufacture,carModel,
                         dateOfRegistration,yearOfManufacture);
 
-        responseEntity =
-                vehicleRegistrationController.deleteRegistration("1");
-
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
 
         responseEntity =
                 vehicleRegistrationController.getVehicleRegistrations();
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
-        assertThat(responseEntity.getBody().equalsIgnoreCase("{}"));
-
+        assertThat(responseEntity.getBody().equalsIgnoreCase("{\"registrations\"[{\"id\":1,\"registrationId\":\"NCA123\"," +
+                "\"carManufacturer\":\"Ford\",\"carModel\":\"Sierra\"," +
+                "\"dateOfRegistration\":\"30-11-2020\",\"yearOfManufacture\":2015}]}"));
     }
+
 }
